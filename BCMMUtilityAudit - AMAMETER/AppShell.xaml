@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BCMMUtilityAudit___AMAMETER.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:views="clr-namespace:BCMMUtilityAudit___AMAMETER.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="AMAMETER">
+
+    <TabBar>
+        <ShellContent
+            Title="Meter Scanner"
+            ContentTemplate="{DataTemplate views:CameraPage}"
+            Route="CameraPage" />
+    </TabBar>
+
+</Shell>

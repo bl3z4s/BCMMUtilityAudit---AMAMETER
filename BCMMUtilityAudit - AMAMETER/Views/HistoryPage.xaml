@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BCMMUtilityAudit___AMAMETER.Views.HistoryPage"
+             Title="Audit History"
+             BackgroundColor="#1E1E1E">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Saved Audit Records" 
+               FontSize="22" 
+               FontAttributes="Bold" 
+               TextColor="White" 
+               HorizontalOptions="Center"/>
+        
+        <CollectionView x:Name="AuditCollectionView" 
+                SelectionMode="Single" 
+                SelectionChanged="OnAuditSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="#2D2D2D" Stroke="#444444" StrokeThickness="1" Padding="15" Margin="0,5">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding MeterReading, StringFormat='Reading Captured: {0}'}" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding Timestamp, StringFormat='Date: {0:yyyy-MM-dd HH:mm}'}" TextColor="#AAAAAA" FontSize="12"/>
+                            <Label Text="{Binding Latitude, StringFormat='GPS: {0}, '}" TextColor="#AAAAAA" FontSize="12"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

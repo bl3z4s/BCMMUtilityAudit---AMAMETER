@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BCMMUtilityAudit___AMAMETER.Views.AuditPage"
+             Title="Statement Audit"
+             BackgroundColor="#1E1E1E">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="BCMM Statement Comparison" 
+                   FontSize="22" 
+                   FontAttributes="Bold" 
+                   TextColor="White" 
+                   HorizontalOptions="Center"/>
+
+            <!-- User/Account Details Frame -->
+            <Border BackgroundColor="#2D2D2D" Stroke="#444444" StrokeThickness="1" Padding="15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="ACCOUNT DETAILS" TextColor="#007ACC" FontAttributes="Bold" FontSize="14"/>
+
+                    <Entry x:Name="AccountNoEntry" Placeholder="BCMM Account Number" TextColor="White"/>
+                    <Entry x:Name="UserNameEntry" Placeholder="Account Holder Name" TextColor="White"/>
+                    <Entry x:Name="UserEmailEntry" Placeholder="Email Address" TextColor="White" Keyboard="Email"/>
+                    <Entry x:Name="UserPhoneEntry" Placeholder="Phone Number" TextColor="White" Keyboard="Telephone"/>
+                    <Entry x:Name="AddressEntry" Placeholder="Property Address" TextColor="White"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Readings Comparison Frame -->
+            <Border BackgroundColor="#2D2D2D" Stroke="#444444" StrokeThickness="1" Padding="15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="READINGS &amp; AUDIT" TextColor="#007ACC" FontAttributes="Bold" FontSize="14"/>
+
+                    <Label Text="Billed Reading on Statement (Estimated):" TextColor="Gray" FontSize="12"/>
+                    <Entry x:Name="BilledReadingEntry" Placeholder="e.g. 1450" TextColor="White" Keyboard="Numeric"/>
+
+                    <Label Text="Verified Physical Reading (Scanned):" TextColor="Gray" FontSize="12"/>
+                    <Entry x:Name="ActualReadingEntry" Placeholder="e.g. 1210" TextColor="White" Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Action Button -->
+            <Button Text="⚖️ Generate Section 95 Dispute PDF" 
+                    Clicked="OnGenerateDisputeClicked" 
+                    BackgroundColor="#DC3545" 
+                    TextColor="White" 
+                    FontAttributes="Bold"
+                    HeightRequest="50"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

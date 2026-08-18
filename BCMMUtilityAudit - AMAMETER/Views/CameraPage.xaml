@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BCMMUtilityAudit___AMAMETER.Views.CameraPage"
+             Title="Scan Meter Reading"
+             BackgroundColor="#1E1E1E">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" VerticalOptions="Center">
+
+            <Label Text="AMAMETER OCR Scanner" 
+                   FontSize="22" 
+                   FontAttributes="Bold" 
+                   TextColor="White" 
+                   HorizontalOptions="Center"/>
+
+            <Image x:Name="MeterPhoto" 
+                   HeightRequest="250" 
+                   Aspect="AspectFit" 
+                   BackgroundColor="#2D2D2D"/>
+
+            <Button Text="📷 Take Photo of Meter" 
+                    Clicked="OnTakePhotoClicked" 
+                    BackgroundColor="#007ACC" 
+                    TextColor="White" 
+                    FontAttributes="Bold"/>
+
+            <!-- GPS Coordinates Display Border -->
+            <Border BackgroundColor="#2D2D2D" Stroke="#444444" StrokeThickness="1" Padding="15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="GPS Coordinates:" TextColor="Gray" FontSize="12"/>
+                    <Label x:Name="GpsLocationLabel" Text="Not captured yet" TextColor="White" FontSize="14"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Extracted Reading Border -->
+            <Border BackgroundColor="#2D2D2D" Stroke="#444444" StrokeThickness="1" Padding="15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Extracted Reading:" TextColor="Gray" FontSize="12"/>
+                    <Entry x:Name="ReadingResultEntry" 
+                           Placeholder="Scan to populate or type reading..." 
+                           TextColor="White" 
+                           FontSize="18" 
+                           Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Verify &amp; Compare Statement" 
+                    Clicked="OnProceedClicked" 
+                    BackgroundColor="#28A745" 
+                    TextColor="White" 
+                    FontAttributes="Bold"/>
+
+            <!-- Add History Navigation Button -->
+            <Button Text="📋 View Audit History" 
+        Clicked="OnViewHistoryClicked" 
+        BackgroundColor="#444444" 
+        TextColor="White" 
+        FontAttributes="Bold"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

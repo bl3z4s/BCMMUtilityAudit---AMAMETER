@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BCMMUtilityAudit___AMAMETER.Views.ProfileSetupPage"
+             Title="Resident Setup">
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="15">
+            <Label Text="Your Resident Profile" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="We will use these details to automatically populate your Section 95 dispute documents." TextColor="#AAAAAA" FontSize="12"/>
+
+            <Label Text="Full Name" TextColor="White"/>
+            <Entry x:Name="NameEntry" Placeholder="e.g., Sithsaba Ncapu" BackgroundColor="#2D2D2D" TextColor="White"/>
+
+            <Label Text="Email Address" TextColor="White"/>
+            <Entry x:Name="EmailEntry" Placeholder="e.g., ncapusithsaba@gmail.com" Keyboard="Email" BackgroundColor="#2D2D2D" TextColor="White"/>
+
+            <Label Text="Phone Number" TextColor="White"/>
+            <Entry x:Name="PhoneEntry" Placeholder="e.g., 0815147215" Keyboard="Telephone" BackgroundColor="#2D2D2D" TextColor="White"/>
+
+            <Label Text="Default Municipal Account Number" TextColor="White"/>
+            <Entry x:Name="AccountEntry" Placeholder="e.g., 1002345678" Keyboard="Numeric" BackgroundColor="#2D2D2D" TextColor="White"/>
+
+            <Button Text="Save &amp; Open Dashboard" Clicked="OnSaveClicked" BackgroundColor="#28a745" TextColor="White" Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

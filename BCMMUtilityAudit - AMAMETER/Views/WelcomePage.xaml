@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BCMMUtilityAudit___AMAMETER.Views.WelcomePage"
+             Title="Welcome">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+            <Label Text="Welcome to Amameter ⚡" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White"/>
+            <Label Text="Your tool to easily contest incorrect municipal bills with Buffalo City Metropolitan Municipality (BCMM) using your Section 95 rights." TextColor="#CCCCCC" HorizontalOptions="Center"/>
+
+            <Frame BackgroundColor="#2D2D2D" CornerRadius="10" Padding="15" Margin="0,10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Privacy &amp; Data Notice" FontAttributes="Bold" TextColor="White"/>
+                    <Label Text="To generate official legal dispute PDFs, this app safely stores your name, contact information, and meter audit records locally on your device." TextColor="#AAAAAA" FontSize="12"/>
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <CheckBox x:Name="ConsentCheckBox"/>
+                        <Label Text="I acknowledge and consent to local data collection" TextColor="White" VerticalOptions="Center" FontSize="13"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Get Started" 
+                    Clicked="OnGetStartedClicked" 
+                    BackgroundColor="#007ACC" 
+                    TextColor="White"
+                    IsEnabled="{Binding Source={x:Reference ConsentCheckBox}, Path=IsChecked}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
