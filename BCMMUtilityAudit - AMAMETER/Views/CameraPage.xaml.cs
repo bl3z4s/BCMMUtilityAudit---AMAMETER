@@ -14,16 +14,13 @@ namespace BCMMUtilityAudit___AMAMETER.Views
     public partial class CameraPage : ContentPage
     {
         private readonly IOcrService _ocrService;
-        private readonly DatabaseService _databaseService;
         private string _capturedLatitude = string.Empty;
         private string _capturedLongitude = string.Empty;
 
-        // Dependency Injection automatically passes both services here
-        public CameraPage(IOcrService ocrService, DatabaseService databaseService)
+        public CameraPage(IOcrService ocrService)
         {
             InitializeComponent();
             _ocrService = ocrService;
-            _databaseService = databaseService;
         }
 
         private async void OnTakePhotoClicked(object? sender, EventArgs e)
@@ -38,20 +35,16 @@ namespace BCMMUtilityAudit___AMAMETER.Views
                     {
                         string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-                        // Save stream locally and close it immediately using braces
                         {
                             using Stream sourceStream = await photo.OpenReadAsync();
                             using FileStream localFileStream = File.Create(localFilePath);
                             await sourceStream.CopyToAsync(localFileStream);
                         }
 
-                        // Show image in UI
                         MeterPhoto.Source = ImageSource.FromFile(localFilePath);
 
-                        // Fetch GPS coordinates
                         await GetCurrentLocationAsync();
 
-                        // Run OCR to scan numbers
                         byte[] imageBytes = File.ReadAllBytes(localFilePath);
                         OcrResult ocrResult = await _ocrService.RecognizeTextAsync(imageBytes);
 
@@ -61,14 +54,14 @@ namespace BCMMUtilityAudit___AMAMETER.Views
                         }
                         else
                         {
-                            await DisplayAlertAsync("OCR Alert", "Could not detect clear text on meter. Please enter reading manually.", "OK");
+                            await DisplayAlert("OCR Alert", "Could not detect clear text on meter. Please enter reading manually.", "OK");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlertAsync("Error", $"Camera error: {ex.Message}", "OK");
+                await DisplayAlert("Error", $"Camera error: {ex.Message}", "OK");
             }
         }
 
@@ -108,31 +101,28 @@ namespace BCMMUtilityAudit___AMAMETER.Views
         {
             if (string.IsNullOrWhiteSpace(ReadingResultEntry.Text))
             {
-                await DisplayAlertAsync("Required", "Please scan or enter a meter reading.", "OK");
+                await DisplayAlert("Required", "Please scan or enter a meter reading.", "OK");
                 return;
             }
 
-            // Create the SQLite record model
             var record = new AuditRecord
             {
                 MeterReading = ReadingResultEntry.Text,
                 Latitude = _capturedLatitude,
                 Longitude = _capturedLongitude,
+                GpsCoords = $"{_capturedLatitude}, {_capturedLongitude}",
                 LocalImagePath = MeterPhoto.Source is FileImageSource fileSource ? fileSource.File : string.Empty,
-                Timestamp = DateTime.Now
+                Timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
-            // Save to local SQLite database
-            await _databaseService.SaveAuditRecordAsync(record);
+            await DatabaseService.SaveRecordAsync(record);
 
-            await DisplayAlertAsync("Success", "Audit record successfully saved to local database!", "OK");
+            await DisplayAlert("Success", "Audit record successfully saved to local database!", "OK");
         }
 
         private async void OnViewHistoryClicked(object? sender, EventArgs e)
         {
-            // Navigate to the HistoryPage using the registered route
             await Shell.Current.GoToAsync(nameof(HistoryPage));
         }
     }
 }
-

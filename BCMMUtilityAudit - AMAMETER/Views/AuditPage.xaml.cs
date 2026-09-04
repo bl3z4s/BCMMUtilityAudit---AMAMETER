@@ -1,4 +1,5 @@
 using BCMMUtilityAudit___AMAMETER.Services;
+using BCMMUtilityAudit___AMAMETER.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.Maui.Controls;
@@ -86,6 +87,8 @@ namespace BCMMUtilityAudit___AMAMETER.Views
                     ? $"{PassedLatitude}, {PassedLongitude}"
                     : "-33.0153, 27.8927";
 
+                string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+
                 string pdfPath = PdfGenerator.GenerateSection95DisputePdf(
                     accountNo: AccountNoEntry.Text,
                     userName: string.IsNullOrWhiteSpace(UserNameEntry?.Text) ? "Resident" : UserNameEntry.Text,
@@ -96,12 +99,27 @@ namespace BCMMUtilityAudit___AMAMETER.Views
                     billedReading: billed,
                     actualReading: actual,
                     gpsCoords: gpsCoords,
-                    timestamp: DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")
+                    timestamp: timestamp
                 );
+
+                // Create the audit record object
+                var record = new AuditRecord
+                {
+                    AccountNo = AccountNoEntry.Text,
+                    UserName = UserNameEntry?.Text ?? "Resident",
+                    BilledReading = billed,
+                    ActualReading = actual,
+                    GpsCoords = gpsCoords,
+                    Timestamp = timestamp,
+                    PdfPath = pdfPath
+                };
+
+                // Save record using your existing DatabaseService
+                await DatabaseService.SaveRecordAsync(record);
 
                 bool shareNow = await DisplayAlertAsync(
                     "Dispute Ready! 📄",
-                    $"Your Section 95 dispute document has been compiled successfully.\n\nWould you like to share or email it now?",
+                    $"Your Section 95 dispute document has been compiled and saved successfully.\n\nWould you like to share or email it now?",
                     "Share PDF",
                     "Close"
                 );
